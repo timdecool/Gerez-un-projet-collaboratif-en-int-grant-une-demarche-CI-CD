@@ -29,6 +29,13 @@ jobs:
           - name: Run tests with coverage
             run: npx ng test --no-progress --watch=false --browsers=ChromeHeadlessCI --code-coverage
           
+          - name: SonarQube Scan
+            uses: SonarSource/sonarqube-scan-action@v7.1.0
+            with:
+              projectBaseDir: ./front
+            env:
+              SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
           - name: Upload coverage report
             uses: actions/upload-artifact@v6
             with:
@@ -36,9 +43,3 @@ jobs:
               path: front/coverage/bobapp/
               retention-days: 7
 
-          - name: SonarQube Scan
-            uses: SonarSource/sonarqube-scan-action@v7.1.0
-            with:
-              projectBaseDir: ./front
-            env:
-              SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
