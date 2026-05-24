@@ -1,0 +1,12 @@
+services:
+  back:
+    image: timdecool/bobapp-back:latest
+    ports:
+      - "8080:8080"
+
+  front:
+    image: timdecool/bobapp-front:latest
+    ports:
+      - "8081:80"
+    depends_on:
+      - back
